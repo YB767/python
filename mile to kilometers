@@ -1,0 +1,40 @@
+from tkinter import *
+
+FONT = ("Arial", 10, "bold")
+window = Tk()
+window.title("Mile to Km Converter")
+window.config(padx=20, pady=20)
+
+# Label Miles
+miles = Label(text="Miles", font=FONT)
+miles.grid(column=2, row=0)
+
+# Label is equal to
+is_equal_to = Label(text="is equal to", font=FONT)
+is_equal_to.grid(column=0, row=1)
+
+# Label Km
+km = Label(text="Km", font=FONT)
+km.grid(column=2, row=1)
+
+# Label num_km
+num_km = Label(text=0, font=FONT)
+num_km.grid(column=1, row=1)
+
+
+# Button
+
+def button_clicked():
+    new_num = float(input.get()) * 1.609
+    num_km.config(text=new_num)
+
+
+button = Button(text="Calculate", command=button_clicked)
+button.grid(column=1, row=2)
+
+# Entry
+
+input = Entry(width=10)
+input.grid(column=1, row=0)
+
+window.mainloop()
