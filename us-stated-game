@@ -1,0 +1,42 @@
+import turtle
+import pandas
+
+FONT = ("Ariel", 10, "normal")
+
+screen = turtle.Screen()
+screen.title("U.S. States Games")
+image = "blank_states_img.gif"
+screen.addshape(image)
+turtle.shape(image)
+number_answer = 0
+states = pandas.read_csv("50_states.csv")
+state_list = states.state.to_list()
+tim = turtle.Turtle()
+tim.hideturtle()
+tim.penup()
+guessed_states = []
+
+
+# If answer_state is one of the states in all the states of the 50_states.csv
+# If they got it right:
+# Create a turtle to write the name of the state at the state's X and Y coordate
+
+while len(guessed_states) < 50:
+    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 Guess the State",
+                                    prompt="What's another state's name?").title()
+    if answer_state == "Exit":
+        # missing_state = []
+        # for state in state_list:
+        #     if state not in guessed_states:
+        #         missing_state.append(state)
+        missing_state = [state for state in state_list if state not in guessed_states]
+        data = pandas.DataFrame(missing_state)
+        data.to_csv("states_to_learn.csv")
+        break
+    if answer_state in state_list:
+        guessed_states.append(answer_state)
+        ans_x_cor = int(states[states.state == answer_state].x)
+        ans_y_cor = int(states[states.state == answer_state].y)
+        ans_data = states[states.state == answer_state]
+        tim.goto(ans_x_cor, ans_y_cor)
+        tim.write(f"{answer_state}", align="center", font=FONT)
